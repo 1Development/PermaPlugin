@@ -1,0 +1,12 @@
+name: PermaPlugin
+main: permaplugin.PermaPlugin
+version: 0.1
+author: 1youri
+commands:
+  home:
+    description: Teleports you to the location of your bed.
+    usage: /home
+  ResetHomeCD:
+    description: Resets all or a specific players' Cooldowns.
+    usage: /ResetHomeCD ['player']
+ 
