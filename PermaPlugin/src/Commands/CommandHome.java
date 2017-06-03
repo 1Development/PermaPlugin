@@ -5,7 +5,7 @@
  */
 package Commands;
 
-import Models.KeepTeleportingPlayer;
+import Models.KeepTeleporting;
 import Models.PlayerCooldown;
 import Models.PlayerCooldownList;
 import java.util.Calendar;
@@ -17,6 +17,8 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -31,7 +33,8 @@ public class CommandHome implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-        if (cs instanceof Player) {
+        
+        if (strings.length == 0) {
             Player player = (Player) cs;
             String uuid = player.getUniqueId().toString();
             PlayerCooldown plr = Config.playerCooldowns.SearchPlayer(uuid);
@@ -57,14 +60,26 @@ public class CommandHome implements CommandExecutor {
                     teleportLoc = Bukkit.getWorld("newSurvival").getSpawnLocation();
                 }
 
-                teleportLoc = new Location(teleportLoc.getWorld(), teleportLoc.getBlockX(), teleportLoc.getBlockY(), teleportLoc.getBlockZ(), teleportLoc.getYaw(), teleportLoc.getPitch());
-
-                KeepTeleportingPlayer ktp = new KeepTeleportingPlayer(player, teleportLoc);
+                KeepTeleporting ktp = new KeepTeleporting(player, teleportLoc);
                 player.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(5 * 20, 10));
                 player.addPotionEffect(PotionEffectType.SATURATION.createEffect(5 * 20, 5));
                 player.addPotionEffect(PotionEffectType.REGENERATION.createEffect(5 * 20, 5));
 
-                ktp.runTaskTimer(Config.SpigotPlugin, 1, 5);
+                ktp.runTaskTimer(Config.SpigotPlugin, 5, 5);
+
+                if (player.getVehicle() != null && player.getVehicle().getType() == EntityType.HORSE) {
+                    if (player.getVehicle() instanceof Horse) {
+                        Horse horse = (Horse) player.getVehicle();
+                        if (horse.isTamed()) {
+                            KeepTeleporting ktph = new KeepTeleporting(player, horse, teleportLoc);
+                            horse.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(5 * 20, 10));
+                            horse.addPotionEffect(PotionEffectType.SATURATION.createEffect(5 * 20, 5));
+                            horse.addPotionEffect(PotionEffectType.REGENERATION.createEffect(5 * 20, 5));
+                            ktph.runTaskTimer(Config.SpigotPlugin, 1, 5);
+                            horse.eject();
+                        }
+                    }
+                }
 
                 return true;
             } else {

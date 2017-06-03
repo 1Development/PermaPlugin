@@ -6,7 +6,9 @@
 package permaplugin;
 
 import Commands.CommandHome;
+import Commands.CommandHomeCD;
 import Commands.CommandResetHomeCD;
+import Commands.CommandResetRepair;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,7 +25,10 @@ public class PermaPlugin extends JavaPlugin {
         Config.ConfigurePlugin(this);
 
         this.getCommand("home").setExecutor(new CommandHome());
-        this.getCommand("ResetHomeCD").setExecutor(new CommandResetHomeCD());
+        this.getCommand("ResetHomeCD").setExecutor(new CommandResetHomeCD());        
+        this.getCommand("HomeCD").setExecutor(new CommandHomeCD());
+        this.getCommand("ResetRepair").setExecutor(new CommandResetRepair());
+
         
         
         saveConfig();

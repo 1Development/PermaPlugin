@@ -1,12 +1,23 @@
 name: PermaPlugin
 main: permaplugin.PermaPlugin
-version: 0.1
+version: 0.11
 author: 1youri
 commands:
-  home:
-    description: Teleports you to the location of your bed.
-    usage: /home
-  ResetHomeCD:
-    description: Resets all or a specific players' Cooldowns.
-    usage: /ResetHomeCD ['player']
+    home:
+        description: Teleports you to the location of your bed.
+        usage: Just enter /<command> without any arguments
+    ResetHomeCD:
+        description: Resets all or a specific players' Cooldowns.
+        usage: /ResetHomeCD ['player']
+    HomeCD:
+        description: Gives you the cooldown on the /home command
+        usage: /HomeCD
+    ResetRepair:
+        description: 
+            Resets the repaircost of the item currently in your mainhand, but this comes at a cost.
+            You can choose to repair using XP or using items.
+            If you want to reset using items, it will cost 2 of that item, unenchanted and undamaged.
+            If you want to reset using XP, it will cost 30 XP levels for tools, and 40 XP levels for armor
+        usage: /ResetRepair [xp|item]
+    
  
