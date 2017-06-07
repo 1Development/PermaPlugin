@@ -67,7 +67,8 @@ public class CommandHome implements CommandExecutor {
 
                 ktp.runTaskTimer(Config.SpigotPlugin, 5, 5);
 
-                if (player.getVehicle() != null && (player.getVehicle().getType() == EntityType.HORSE || player.getVehicle().getType() == EntityType.SKELETON_HORSE || player.getVehicle().getType() == EntityType.ZOMBIE_HORSE || player.getVehicle().getType() == EntityType.DONKEY)) {
+                EntityType type = player.getVehicle().getType();
+                if (player.getVehicle() != null && (type == EntityType.HORSE || type == EntityType.SKELETON_HORSE || type == EntityType.ZOMBIE_HORSE || type == EntityType.DONKEY)) {
                     if (player.getVehicle() instanceof Horse) {
                         Horse horse = (Horse) player.getVehicle();
                         if (horse.isTamed()) {
