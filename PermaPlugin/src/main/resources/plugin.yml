@@ -1,6 +1,6 @@
 name: PermaPlugin
 main: permaplugin.PermaPlugin
-version: 0.12
+version: 0.13
 author: 1youri
 commands:
     home:
